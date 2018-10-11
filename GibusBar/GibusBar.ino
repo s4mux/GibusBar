@@ -9,7 +9,7 @@
 
 void ArduinoDebug(std::ostringstream& oss)
 {
-  Serial.println(oss.str().c_str());
+  //Serial.println(oss.str().c_str());
 }
 
 
@@ -61,6 +61,64 @@ Control ledControl;
 
 
 
+class Button {
+  public:
+    Button(uint8_t PIN) : PIN(PIN)
+    {
+      buttonState = LOW;
+      numberKeyPresses = 0;
+      lastDebounceTime = 0;
+      lastState = LOW;
+      pinMode(PIN, INPUT_PULLUP);
+    }
+    bool Process(void){
+      int reading = digitalRead(PIN);
+      bool ret = false;
+
+      //Serial.printf("Reading of PIN %d: %d\n", PIN, reading);
+
+      if(reading != lastState){
+        lastDebounceTime  = millis();
+      }
+
+      if ((millis() - lastDebounceTime) > buttonDebounceTime) {
+        if (reading != buttonState) {
+          buttonState = reading;
+          if (buttonState == HIGH) {
+            numberKeyPresses++;
+
+            //Serial.printf("Button on PIN %d pressed", PIN, reading);
+            
+            ret = true;
+          }
+        }
+      }
+      lastState = reading;
+      return ret;
+    }
+
+    bool Pressed(void)
+    {
+      return (buttonState == HIGH);
+    }
+
+
+    uint32_t numberKeyPresses;
+
+  private:
+    const size_t buttonDebounceTime = 50;
+    const uint8_t PIN;
+    int buttonState;
+    int lastState;
+    size_t lastDebounceTime;
+};
+
+Button button1 = {25};
+Button button2 = {39};
+
+
+
+
 void setup() {
 
 
@@ -68,6 +126,7 @@ randomSeed(analogRead(0));
 
 
 
+    
 
   
   //initialise two instances of the SPIClass attached to VSPI and HSPI respectively
@@ -124,6 +183,23 @@ Serial.println(oss.str().c_str());
 
 // the loop function runs over and over again until power down or reset
 void loop() {
+
+  if(button1.Process()){
+        Serial.printf("Button 1 has been pressed %u times\n", button1.numberKeyPresses);
+        ledControl.PushButton();
+    
+  }
+  
+  if(button2.Process()){
+        Serial.printf("Button 2 has been pressed %u times\n", button2.numberKeyPresses);
+        ledControl.PushButton();
+        
+    
+  }
+
+    
+    
+  
   
   ledControl.Update();
   //setSingleColor();
