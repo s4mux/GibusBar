@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <deque>
 #include "iPixel.hpp"
 
 
@@ -14,8 +14,7 @@ private:
 	std::vector<iPixel> colors;
 
 	size_t oldColor;
-	size_t moving;
+	std::deque<size_t> movings;
 	size_t color;
 	size_t fill;
-
 };

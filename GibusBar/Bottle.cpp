@@ -5,7 +5,14 @@
 #include <sstream>
 
 std::chrono::milliseconds GetMsTime(void);
-void ArduinoDebug(std::ostringstream& oss);
+
+#ifdef WIN_EMULATOR
+	std::chrono::milliseconds GetMsTime(void)
+	{
+		return std::chrono::duration_cast<std::chrono::milliseconds> (std::chrono::system_clock::now().time_since_epoch());
+	}
+
+#endif
 
 Bottle::Bottle(iPixel::Leds& leds, size_t index, size_t length) :
 	leds(leds),

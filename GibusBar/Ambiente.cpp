@@ -1,6 +1,6 @@
 #include "Ambiente.hpp"
 
-#if 0
+#ifdef WIN_EMULATOR
 void BottleFinish(Bottle& bottle) {
   
 	uint8_t r = rand() % 256;

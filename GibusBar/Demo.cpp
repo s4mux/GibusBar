@@ -17,7 +17,7 @@ Demo::Demo(iPixel::Leds& leds) :
 
 	color = 1;
 	oldColor = 0;
-	moving = 0;
+	movings.emplace_back(0);
 	fill = 0;
 }
 
@@ -29,17 +29,26 @@ void Demo::Update(void)
 		led = colors.at(oldColor);
 	}
 
-	leds.at(moving) = colors.at(color);
+	for (auto& moving : movings) {
+		leds.at(moving) = colors.at(color);
+		moving++;
+	}
 
-	moving++;
+	if (movings.size() && movings.back() > 6) {
+		movings.push_back(0);
+	}
 
 	for (size_t i = leds.size() - fill; i < leds.size(); i++) {
 		leds.at(i) = colors.at(color);
 	}
 
-	if (moving + fill >= leds.size()) {
-		moving = 0;
+	if (movings.size() &&  movings.front() + fill >= leds.size()) {
+		movings.pop_front();
 		fill++;
+
+		if (0 == movings.size()) {
+			movings.push_back(0);
+		}
 
 		if (fill >= leds.size()) {
 			fill = 0;
@@ -48,6 +57,8 @@ void Demo::Update(void)
 			if (color >= colors.size()) {
 				color = 0;
 			}
+			movings.clear();
+			movings.push_back(0);
 		}
 	}
 }

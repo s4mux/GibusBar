@@ -18,36 +18,36 @@
     <ClCompile Include="Emulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Ambiente.cpp">
+    <ClCompile Include="..\GibusBar\Ambiente.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Demo.cpp">
+    <ClCompile Include="..\GibusBar\Bottle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iPixel.cpp">
+    <ClCompile Include="..\GibusBar\Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Bottle.cpp">
+    <ClCompile Include="..\GibusBar\Demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Control.cpp">
+    <ClCompile Include="..\GibusBar\iPixel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Ambiente.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Demo.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iPixel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Bottle.hpp">
+    <ClInclude Include="..\GibusBar\Ambiente.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Control.hpp">
+    <ClInclude Include="..\GibusBar\Bottle.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GibusBar\Control.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GibusBar\Demo.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GibusBar\iPixel.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
