@@ -3,6 +3,8 @@
 #include "iPixel.hpp"
 #include "Bottle.hpp"
 
+void BottleFinish(Bottle& bottle);
+
 class Ambiente {
 public:
 	Ambiente(iPixel::Leds& leds);

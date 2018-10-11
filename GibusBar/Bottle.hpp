@@ -1,6 +1,7 @@
 #pragma once
 
 #include "iPixel.hpp"
+
 #include <chrono>
 #include <functional>
 
@@ -16,8 +17,11 @@ private:
 
 	iPixel actualColor;
 	iPixel nexColor;
-
+#if 0
 	std::chrono::system_clock::time_point startOfTransition;
+ #else
+  std::chrono::milliseconds startOfTransition;
+ #endif
 	std::chrono::milliseconds transitionTime;
 
 	std::function<void(Bottle&)> finish=nullptr;

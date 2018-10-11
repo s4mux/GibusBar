@@ -2,6 +2,9 @@
 
 
 
+#include <sstream>
+void ArduinoDebug(std::ostringstream& oss);
+
 iPixel::iPixel(void) :
 	start(7)
 {
@@ -64,6 +67,7 @@ bool iPixel::operator==(const iPixel& b) const
 
 iPixel iPixel::Interpolate(iPixel& A, iPixel& B, float f)
 {
+  std::ostringstream debug;
 	if (f > 1.0) {
 		f = 1.0;
 	}
@@ -73,10 +77,15 @@ iPixel iPixel::Interpolate(iPixel& A, iPixel& B, float f)
 
 	iPixel newColor;
 
-	newColor.red = A.red+((float)B.red - (float)A.red) * f;
-	newColor.green = A.green + ((float)B.green - (float)A.green) * f;
-	newColor.blue = A.blue + ((float)B.blue - (float)A.blue) * f;
-	newColor.global = A.global + ((float)B.global - (float)A.global) * f;
+	newColor.red = (size_t)((float)A.red+((float)B.red - (float)A.red) * f)%256;
+	newColor.green = (size_t)((float)A.green + ((float)B.green - (float)A.green) * f)%256;
+	newColor.blue = (size_t)((float)A.blue + ((float)B.blue - (float)A.blue) * f)%256;
+	newColor.global = (size_t)((float)A.global + ((float)B.global - (float)A.global) * f)%256;
+
+  debug << "f: " << f << ". Color: " << (size_t)newColor.red << "|"<< (size_t)newColor.green << "|"<< (size_t)newColor.blue << "|"<< (size_t)newColor.global;
+
+
+   ArduinoDebug(debug);
 
 	return newColor;
 }

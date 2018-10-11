@@ -4,6 +4,7 @@ Demo::Demo(iPixel::Leds& leds) :
 	leds(leds)
 {
 	colors.emplace_back(0, 0, 0);
+
 	colors.emplace_back(200, 0, 0);
 	colors.emplace_back(0, 200, 0);
 	colors.emplace_back(0, 0, 200);
@@ -12,6 +13,7 @@ Demo::Demo(iPixel::Leds& leds) :
 	colors.emplace_back(0, 250, 50);
 	colors.emplace_back(0, 255, 100);
 	colors.emplace_back(200, 200, 200);
+ 
 
 	color = 1;
 	oldColor = 0;

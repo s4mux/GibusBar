@@ -4,6 +4,8 @@
 #include "Demo.hpp"
 #include "Ambiente.hpp"
 
+std::chrono::milliseconds GetMsTime(void);
+
 class Control {
 public:
 	enum class MODE{

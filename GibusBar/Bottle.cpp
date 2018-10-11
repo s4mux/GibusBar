@@ -2,6 +2,11 @@
 
 #include <chrono>
 
+#include <sstream>
+
+std::chrono::milliseconds GetMsTime(void);
+void ArduinoDebug(std::ostringstream& oss);
+
 Bottle::Bottle(iPixel::Leds& leds, size_t index, size_t length) :
 	leds(leds),
 	index(index),
@@ -12,16 +17,20 @@ Bottle::Bottle(iPixel::Leds& leds, size_t index, size_t length) :
 
 void Bottle::Process(void)
 {
+  
+   std::ostringstream debug;
 	if (nexColor == actualColor) {
 		for (size_t i = index; i < index + length; i++) {
 			leds.at(i) = actualColor;
 		}
 	}
 	else{
-		auto t = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startOfTransition);
+		auto t = (GetMsTime() - startOfTransition);
 		float f = (float)t.count() / (float)transitionTime.count();
+   debug << "time is" << t.count() << "and f: " << f;
+    iPixel interpolatedColor = iPixel::Interpolate(actualColor, nexColor, f);
 		for (size_t i = index; i < index + length; i++) {
-			leds.at(i) = iPixel::Interpolate(actualColor, nexColor, f);
+			leds.at(i) = interpolatedColor;
 		}
 		if (f > 1.0) {
 			actualColor = nexColor;
@@ -30,11 +39,17 @@ void Bottle::Process(void)
 			}
 		}
 	}
+ 
+   //ArduinoDebug(debug);
 }
 
 void Bottle::SetColor(iPixel& nextColor, std::chrono::milliseconds transitionTime, std::function<void(Bottle&)> finish)
 {
+  #if 0
 	startOfTransition = std::chrono::system_clock::now();
+ #else
+startOfTransition = GetMsTime();
+ #endif
 	this->transitionTime = transitionTime;
 	this->nexColor = nextColor;
 	this->finish = finish;

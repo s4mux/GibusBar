@@ -1,14 +1,17 @@
 #include "Ambiente.hpp"
 
+#if 0
 void BottleFinish(Bottle& bottle) {
+  
 	uint8_t r = rand() % 256;
 	uint8_t g = rand() % 256;
 	uint8_t b = rand() % 256;
 	size_t time = rand() % 30000 + 5000;
-	iPixel clr(r, g, b);
-	bottle.SetColor(clr, std::chrono::milliseconds{ time }, BottleFinish);
-}
 
+  iPixel clr(r, g, b);
+  bottle.SetColor(clr, std::chrono::milliseconds{ time }, BottleFinish);
+}
+#endif
 
 Ambiente::Ambiente(iPixel::Leds& leds) : 
 	leds(leds),
